@@ -1,0 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/25 23:16:03 by jaehylee          #+#    #+#             */
+/*   Updated: 2025/03/26 01:27:48 by jaehylee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+
+void	matalloc(t_list **dyn, t_matrix *mat)
+{
+	if (mat->cap == 0)
+		mat->ptr = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
+	else
+		gc_realloc(dyn, (void **)&mat->ptr, mat->cap * sizeof(t_vec),
+			mat->cap * 2 * sizeof(t_vec));
+	if (!mat->ptr)
+		return ;
+	if (mat->cap == 0)
+		mat->cap = 1;
+	else
+		mat->cap *= 2;
+}
+
+void	add_row(t_list **dyn, t_vec row, t_matrix *mat)
+{
+	if (mat->col == mat->cap)
+		matalloc(dyn, mat);
+	if (mat->ptr[0].len != row.len)
+		return ;
+	mat->ptr[mat->col++] = row;
+}
+
+void	add_col(t_list **dyn, t_vec col, t_matrix *mat)
+{
+	size_t	i;
+
+	if (mat->col == 0 || mat->col != col.len)
+		return ;
+	i = 0;
+	while (i < mat->col)
+	{
+		push_back(dyn, mat->ptr + i, col.ptr[i]);
+		i++;
+	}
+}
+
+t_matrix	*matmul(t_list **dyn, t_matrix *a, t_matrix *b)
+{
+	t_matrix	*c;
+	size_t		i;
+
+	if (a->col == 0 || b->col == 0 || a->ptr->len != b->col)
+		return (NULL);
+	c = (t_matrix *)gc_calloc(dyn, 1, sizeof(t_matrix));
+	if (c == NULL)
+		return (NULL);
+	c->ptr = (t_vec *)gc_calloc(dyn, a->col, sizeof(t_vec));
+	if (c->ptr == NULL)
+		return (NULL);
+	i = 0;
+	while (i < a->col)
+	{
+		c->ptr[i].ptr = (int *)gc_calloc(dyn, b->ptr->len, sizeof(int));
+		if (c->ptr[i].ptr == NULL)
+			return (NULL);
+		i++;
+	}
+	return (matmul2(c, a, b));
+}
+
+t_matrix	*matmul2(t_matrix *c, t_matrix *a, t_matrix *b)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < a->col)
+	{
+		j = 0;
+		while (j < b->ptr->len)
+		{
+			c->ptr[i].ptr[j] = dot_prod(a->ptr[i], b, j);
+			j++;
+		}
+		i++;
+	}
+	return (c);
+}

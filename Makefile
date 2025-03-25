@@ -1,14 +1,14 @@
 CC := cc
 
 CFLAGS := -Wall -Wextra -Werror -foptimize-sibling-calls \
-	-I/usr/include -Iminilibx-linux -O2 -g
+	-I/usr/include -Iminilibx-linux -O2
 
 BFLAGS := -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux \
 	-Lft_printf -lftprintf -lXext -lX11 -lm -lz
 
 NAME := fdf
 
-SRCS := src/main.c
+SRCS := src/main.c src/etc.c src/matrix.c src/matrix2.c
 
 OBJS := $(patsubst src/%.c,build/%.o,$(SRCS))
 

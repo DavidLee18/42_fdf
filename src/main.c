@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:26:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/22 22:33:49 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:42:05 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 int	main(int argc, char **argv)
 {
+	t_list	*dyn;
+
+	dyn = NULL;
 	return (0);
 }
