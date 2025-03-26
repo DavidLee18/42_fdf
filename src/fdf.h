@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/26 02:12:40 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:45:39 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define FDF "fdf"
 # define INT_MAX_ 2147483647
 # define INT_MIN_ -2147483648
+# define SQRT_1000 31.622776601683793
 
 typedef struct s_matrix
 {
@@ -41,7 +42,8 @@ t_matrix	*rotate(t_list **dyn, double angx, double angy, t_matrix *mat);
 t_matrix	*get_vrot(t_list **dyn, double angle);
 t_matrix	*get_hrot(t_list **dyn, double angle);
 t_matrix	*ortho_proj(t_list **dyn, t_matrix *mat);
-t_matrix	*_3d_point_vec(t_list **dyn, int x, int y, int z);
+t_matrix	*_3d_point_col(t_list **dyn, int x, int y, int z);
+t_vec		*mat2vec(t_matrix *mat);
 
 t_matrix	*atoi_split(t_list **dyn, int fd);
 t_vec		*atoi_push(t_list **dyn, char **nums);
