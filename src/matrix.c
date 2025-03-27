@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:16:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/26 01:27:48 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/26 23:55:29 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ void	matalloc(t_list **dyn, t_matrix *mat)
 
 void	add_row(t_list **dyn, t_vec row, t_matrix *mat)
 {
+	t_vec	*v;
+
 	if (mat->col == mat->cap)
 		matalloc(dyn, mat);
-	if (mat->ptr[0].len != row.len)
+	if (mat->col != 0 && mat->ptr[0].len != row.len)
 		return ;
-	mat->ptr[mat->col++] = row;
+	v = veccpy(dyn, row);
+	if (v == NULL)
+		return ;
+	mat->ptr[mat->col++] = *v;
 }
 
 void	add_col(t_list **dyn, t_vec col, t_matrix *mat)

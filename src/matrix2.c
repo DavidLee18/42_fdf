@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 01:28:19 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/26 11:57:31 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:37:05 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,22 @@ t_matrix	*get_hrot(t_list **dyn, double angle)
 	add_col(dyn, *mat2vec(_3d_point_col(dyn, 0, SQRT_1000 * sin(angle),
 				SQRT_1000 * cos(angle))), rot);
 	return (rot);
+}
+
+t_matrix	*ortho_proj(t_list **dyn, t_matrix *mat)
+{
+	t_matrix	*proj;
+
+	proj = _3d_point_col(dyn, 1, 0, 0);
+	if (proj == NULL)
+		return (NULL);
+	if (_3d_point_col(dyn, 0, 1, 0) == NULL
+		|| mat2vec(_3d_point_col(dyn, 0, 1, 0)) == NULL)
+		return (NULL);
+	add_col(dyn, *mat2vec(_3d_point_col(dyn, 0, 1, 0)), proj);
+	if (_3d_point_col(dyn, 0, 0, 0) == NULL
+		|| mat2vec(_3d_point_col(dyn, 0, 0, 0)) == NULL)
+		return (NULL);
+	add_col(dyn, *mat2vec(_3d_point_col(dyn, 0, 0, 0)), proj);
+	return (matmul(dyn, proj, mat));
 }
