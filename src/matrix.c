@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:16:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/26 23:55:29 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/29 00:35:02 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,34 @@ void	matalloc(t_list **dyn, t_matrix *mat)
 		mat->cap *= 2;
 }
 
-void	add_row(t_list **dyn, t_vec row, t_matrix *mat)
+_Bool	add_row(t_list **dyn, t_vec row, t_matrix *mat)
 {
 	t_vec	*v;
 
 	if (mat->col == mat->cap)
 		matalloc(dyn, mat);
 	if (mat->col != 0 && mat->ptr[0].len != row.len)
-		return ;
+		return (0);
 	v = veccpy(dyn, row);
 	if (v == NULL)
-		return ;
+		return (0);
 	mat->ptr[mat->col++] = *v;
+	return (1);
 }
 
-void	add_col(t_list **dyn, t_vec col, t_matrix *mat)
+_Bool	add_col(t_list **dyn, t_vec col, t_matrix *mat)
 {
 	size_t	i;
 
 	if (mat->col == 0 || mat->col != col.len)
-		return ;
+		return (0);
 	i = 0;
 	while (i < mat->col)
 	{
 		push_back(dyn, mat->ptr + i, col.ptr[i]);
 		i++;
 	}
+	return (1);
 }
 
 t_matrix	*matmul(t_list **dyn, t_matrix *a, t_matrix *b)
@@ -69,11 +71,15 @@ t_matrix	*matmul(t_list **dyn, t_matrix *a, t_matrix *b)
 	if (c->ptr == NULL)
 		return (NULL);
 	i = 0;
+	c->cap = a->col;
+	c->col = 0;
 	while (i < a->col)
 	{
 		c->ptr[i].ptr = (int *)gc_calloc(dyn, b->ptr->len, sizeof(int));
 		if (c->ptr[i].ptr == NULL)
 			return (NULL);
+		c->ptr[i].cap = b->ptr->len;
+		c->ptr[i].len = 0;
 		i++;
 	}
 	return (matmul2(c, a, b));

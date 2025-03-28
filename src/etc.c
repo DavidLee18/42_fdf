@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/25 23:14:47 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/29 07:46:00 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,42 @@
 t_matrix	*atoi_split(t_list **dyn, int fd)
 {
 	char		*str;
-	t_vec		*row;
+	t_matrix	*row;
 	char		**tmp;
 	t_matrix	*mat;
+	size_t		i;
 
-	mat = gc_calloc(dyn, 1, sizeof(t_matrix));
-	if (mat == NULL)
-		return (NULL);
+	mat = NULL;
 	str = gc_getline(dyn, fd);
 	if (str == NULL)
 		return (NULL);
+	i = 0;
 	while (str != NULL)
 	{
 		tmp = gc_split(dyn, str, ' ');
 		if (tmp == NULL)
 			return (NULL);
-		row = atoi_push(dyn, tmp);
-		if (!row)
+		row = atoi_push(dyn, tmp, i++);
+		if (i == 0)
+			mat = row;
+		else if (row != NULL)
+			mat = append(dyn, mat, row);
+		if (mat == NULL || row == NULL)
 			return (NULL);
-		add_row(dyn, *row, mat);
 		str = gc_getline(dyn, fd);
-		if (str == NULL)
-			return (NULL);
 	}
-	return (mat);
+	return (transpose(dyn, mat));
 }
 
-t_vec	*atoi_push(t_list **dyn, char **nums)
+t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row)
 {
-	t_vec	*v;
-	size_t	i;
-	int		*j;
+	t_vec		*v;
+	size_t		i;
+	int			*j;
+	t_matrix	*res;
 
-	v = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
-	if (v == NULL)
+	res = (t_matrix *)gc_calloc(dyn, 1, sizeof(t_matrix));
+	if (res == NULL)
 		return (NULL);
 	i = 0;
 	while (nums[i])
@@ -56,10 +58,11 @@ t_vec	*atoi_push(t_list **dyn, char **nums)
 		j = atoi_(dyn, nums[i]);
 		if (j == NULL)
 			return (NULL);
-		push_front(dyn, v, *j);
-		i++;
+		v = mat2vec(dyn, _3d_point_col(dyn, (int)row, (int)i++, *j));
+		if (v == NULL || !add_row(dyn, *v, res))
+			return (NULL);
 	}
-	return (v);
+	return (res);
 }
 
 int	*atoi_(t_list **dyn, const char *str)

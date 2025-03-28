@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/27 00:33:51 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/29 06:34:32 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,26 @@ typedef struct s_matrix
 	t_vec	*ptr;
 }	t_matrix;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef struct s_fdf
+{
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	t_matrix	*points;
+}	t_fdf;
+
 void		matalloc(t_list **dyn, t_matrix *mat);
-void		add_row(t_list **dyn, t_vec row, t_matrix *mat);
-void		add_col(t_list **dyn, t_vec col, t_matrix *mat);
+_Bool		add_row(t_list **dyn, t_vec row, t_matrix *mat);
+_Bool		add_col(t_list **dyn, t_vec col, t_matrix *mat);
 t_matrix	*matmul(t_list **dyn, t_matrix *a, t_matrix *b);
 t_matrix	*matmul2(t_matrix *c, t_matrix *a, t_matrix *b);
 int			dot_prod(t_vec row, t_matrix *mat, size_t col);
@@ -44,9 +61,19 @@ t_matrix	*get_hrot(t_list **dyn, double angle);
 t_matrix	*ortho_proj(t_list **dyn, t_matrix *mat);
 t_matrix	*_3d_point_col(t_list **dyn, int x, int y, int z);
 t_vec		*mat2vec(t_list **dyn, t_matrix *mat);
+t_matrix	*transpose(t_list **dyn, t_matrix *mat);
+t_matrix	*append(t_list **dyn, t_matrix *a, t_matrix *b);
+t_matrix	*matcpy(t_list **dyn, t_matrix *mat);
 
 t_matrix	*atoi_split(t_list **dyn, int fd);
-t_vec		*atoi_push(t_list **dyn, char **nums);
+t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row);
 int			*atoi_(t_list **dyn, const char *str);
+
+t_fdf		*parse_fdf(t_list **dyn, char *path);
+_Bool		init_img(t_list **dyn, void *mlx, t_img **img);
+void		draw_fdf(t_fdf *f);
+int			on_key(int keycode, t_fdf *f);
+int			cleanup(t_fdf *f);
+void		put_pixel(t_img *img, int x, int y, int color);
 
 #endif
