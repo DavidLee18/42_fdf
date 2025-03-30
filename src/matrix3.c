@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:38:56 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/29 05:40:16 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/29 14:53:02 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ t_matrix	*_3d_point_col(t_list **dyn, int x, int y, int z)
 	p->cap = 0;
 	v = (t_vec){.ptr = NULL, .len = 0, .cap = 0};
 	push_back(dyn, &v, x);
-	add_row(dyn, v, p);
+	if (!add_row(dyn, v, p))
+		return (NULL);
 	v.ptr[0] = y;
-	add_row(dyn, v, p);
+	if (!add_row(dyn, v, p))
+		return (NULL);
 	v.ptr[0] = z;
-	add_row(dyn, v, p);
+	if (!add_row(dyn, v, p))
+		return (NULL);
 	return (p);
 }
 

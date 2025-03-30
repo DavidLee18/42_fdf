@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:16:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/29 00:35:02 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 04:30:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,16 @@ _Bool	add_col(t_list **dyn, t_vec col, t_matrix *mat)
 {
 	size_t	i;
 
-	if (mat->col == 0 || mat->col != col.len)
+	if (mat->col == 0)
+	{
+		i = 0;
+		while (i < col.len)
+		{
+			add_row(dyn, (t_vec){.ptr = NULL, .len = 0, .cap = 0}, mat);
+			i++;
+		}
+	}
+	else if (mat->col != col.len)
 		return (0);
 	i = 0;
 	while (i < mat->col)
@@ -72,14 +81,14 @@ t_matrix	*matmul(t_list **dyn, t_matrix *a, t_matrix *b)
 		return (NULL);
 	i = 0;
 	c->cap = a->col;
-	c->col = 0;
+	c->col = a->col;
 	while (i < a->col)
 	{
 		c->ptr[i].ptr = (int *)gc_calloc(dyn, b->ptr->len, sizeof(int));
 		if (c->ptr[i].ptr == NULL)
 			return (NULL);
 		c->ptr[i].cap = b->ptr->len;
-		c->ptr[i].len = 0;
+		c->ptr[i].len = b->ptr->len;
 		i++;
 	}
 	return (matmul2(c, a, b));

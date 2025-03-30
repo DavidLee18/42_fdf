@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/29 06:34:32 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 04:36:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_matrix	*matcpy(t_list **dyn, t_matrix *mat);
 t_matrix	*atoi_split(t_list **dyn, int fd);
 t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row);
 int			*atoi_(t_list **dyn, const char *str);
+int			clamp(int val, int min, int max);
 
 t_fdf		*parse_fdf(t_list **dyn, char *path);
 _Bool		init_img(t_list **dyn, void *mlx, t_img **img);

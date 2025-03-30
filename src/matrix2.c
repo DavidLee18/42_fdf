@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 01:28:19 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/27 23:55:27 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 04:24:19 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_matrix	*rotate(t_list **dyn, double angx, double angy, t_matrix *mat)
 	t_matrix	*hrot;
 	t_matrix	*res;
 
-	if (mat->col != 3 || mat->ptr->len != 1)
+	if (mat->col != 3)
 		return (NULL);
 	vrot = get_vrot(dyn, angy);
 	hrot = get_hrot(dyn, angx);

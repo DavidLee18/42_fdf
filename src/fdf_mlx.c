@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:36:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/29 07:26:22 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 04:37:13 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,17 @@ void	put_pixel(t_img *img, int x, int y, int color)
 void	draw_fdf(t_fdf *f)
 {
 	size_t	i;
+	int		x;
+	int		y;
 
 	i = 0;
+	x = 0;
+	y = 0;
 	while (i < f->points->ptr->len)
 	{
-		put_pixel(f->img, f->points->ptr->ptr[i],
-			f->points->ptr[1].ptr[i], 0xFF0000);
+		x = clamp(f->points->ptr->ptr[i], 0, 1920);
+		y = clamp(f->points->ptr[1].ptr[i], 0, 1080);
+		put_pixel(f->img, x, y, 0xFF0000);
 		i++;
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img->img, 0, 0);

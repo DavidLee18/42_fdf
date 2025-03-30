@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/29 07:46:00 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 04:36:39 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_matrix	*atoi_split(t_list **dyn, int fd)
 	if (str == NULL)
 		return (NULL);
 	i = 0;
-	while (str != NULL)
+	while (str != NULL && str[0] != '\0')
 	{
 		tmp = gc_split(dyn, str, ' ');
 		if (tmp == NULL)
 			return (NULL);
 		row = atoi_push(dyn, tmp, i++);
-		if (i == 0)
+		if (i == 1)
 			mat = row;
 		else if (row != NULL)
 			mat = append(dyn, mat, row);
@@ -92,4 +92,13 @@ int	*atoi_(t_list **dyn, const char *str)
 		return (NULL);
 	*res = (int)temp;
 	return (res);
+}
+
+int	clamp(int val, int min, int max)
+{
+	if (val < min)
+		return (min);
+	if (val > max)
+		return (max);
+	return (val);
 }
