@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 04:36:28 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:16:54 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # define FDF "fdf"
 # define INT_MAX_ 2147483647
 # define INT_MIN_ -2147483648
-# define SQRT_1000 31.622776601683793
+# define SQRT_1000 6
+# define ESC 0xFF1B
 
 typedef struct s_matrix
 {
@@ -47,6 +48,7 @@ typedef struct s_fdf
 	void		*win;
 	t_img		*img;
 	t_matrix	*points;
+	t_list		**dyn;
 }	t_fdf;
 
 void		matalloc(t_list **dyn, t_matrix *mat);

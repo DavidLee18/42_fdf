@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:36:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 04:37:13 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:18:31 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_fdf	*parse_fdf(t_list **dyn, char *path)
 		return (free(f->mlx), NULL);
 	if (!init_img(dyn, f->mlx, &f->img))
 		return (mlx_destroy_window(f->mlx, f->win), free(f->mlx), NULL);
+	f->dyn = dyn;
 	return (f);
 }
 
@@ -69,7 +70,9 @@ void	draw_fdf(t_fdf *f)
 	y = 0;
 	while (i < f->points->ptr->len)
 	{
-		x = clamp(f->points->ptr->ptr[i], 0, 1920);
+		ft_fprintf(STDOUT_FILENO, "(%4d, %4d) ", f->points->ptr->ptr[i],
+			f->points->ptr[1].ptr[i]);
+		x = clamp(f->points->ptr->ptr[i] + 300, 0, 1920);
 		y = clamp(f->points->ptr[1].ptr[i], 0, 1080);
 		put_pixel(f->img, x, y, 0xFF0000);
 		i++;
