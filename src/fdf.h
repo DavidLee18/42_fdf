@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 12:16:54 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:22:29 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 # define FDF "fdf"
 # define INT_MAX_ 2147483647
 # define INT_MIN_ -2147483648
-# define SQRT_1000 6
+# define SCALE 100
 # define ESC 0xFF1B
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 
 typedef struct s_matrix
 {
@@ -51,6 +53,12 @@ typedef struct s_fdf
 	t_list		**dyn;
 }	t_fdf;
 
+typedef struct s_point2
+{
+	int	x;
+	int	y;
+}	t_point2;
+
 void		matalloc(t_list **dyn, t_matrix *mat);
 _Bool		add_row(t_list **dyn, t_vec row, t_matrix *mat);
 _Bool		add_col(t_list **dyn, t_vec col, t_matrix *mat);
@@ -74,9 +82,14 @@ int			clamp(int val, int min, int max);
 
 t_fdf		*parse_fdf(t_list **dyn, char *path);
 _Bool		init_img(t_list **dyn, void *mlx, t_img **img);
-void		draw_fdf(t_fdf *f);
+_Bool		draw_fdf(t_fdf *f);
 int			on_key(int keycode, t_fdf *f);
 int			cleanup(t_fdf *f);
 void		put_pixel(t_img *img, int x, int y, int color);
+void		draw_line(t_img *img, t_point2 p1, t_point2 p2);
+size_t		get_max_width(t_matrix *mat);
+size_t		get_max_height(t_matrix *mat);
+void		fit_scale(t_fdf *f);
+void		fit_pos(t_fdf *f);
 
 #endif

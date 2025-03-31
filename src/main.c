@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:26:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 11:42:00 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:16:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	main(int argc, char **argv)
 	if (fdf->points == NULL)
 		return (ft_fprintf(STDERR_FILENO, "failed to project\n"), cleanup(fdf),
 			0);
-	draw_fdf(fdf);
+	if (!draw_fdf(fdf))
+		return (cleanup(fdf), 0);
 	mlx_key_hook(fdf->win, on_key, fdf);
 	mlx_hook(fdf->win, 0x21, 0, cleanup, fdf);
 	mlx_loop(fdf->mlx);

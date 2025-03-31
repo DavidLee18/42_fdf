@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 01:28:19 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 04:24:19 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:21:07 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ t_matrix	*get_vrot(t_list **dyn, double angle)
 {
 	t_matrix	*rot;
 
-	rot = _3d_point_col(dyn, SQRT_1000 * cos(angle), 0, SQRT_1000 * sin(angle));
+	rot = _3d_point_col(dyn, SCALE * cos(angle), 0, SCALE * sin(angle));
 	if (rot == NULL)
 		return (NULL);
-	if (_3d_point_col(dyn, 0, SQRT_1000, 0) == NULL
-		|| mat2vec(dyn, _3d_point_col(dyn, 0, SQRT_1000, 0)) == NULL)
+	if (_3d_point_col(dyn, 0, SCALE, 0) == NULL
+		|| mat2vec(dyn, _3d_point_col(dyn, 0, SCALE, 0)) == NULL)
 		return (NULL);
-	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, SQRT_1000, 0)), rot);
-	if (_3d_point_col(dyn, SQRT_1000 * sin(angle), 0, SQRT_1000 * cos(angle))
-		== NULL || mat2vec(dyn, _3d_point_col(dyn, -SQRT_1000 * sin(angle), 0,
-				SQRT_1000 * cos(angle))) == NULL)
+	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, SCALE, 0)), rot);
+	if (_3d_point_col(dyn, SCALE * sin(angle), 0, SCALE * cos(angle))
+		== NULL || mat2vec(dyn, _3d_point_col(dyn, -SCALE * sin(angle), 0,
+				SCALE * cos(angle))) == NULL)
 		return (NULL);
-	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, -SQRT_1000 * sin(angle), 0,
-				SQRT_1000 * cos(angle))), rot);
+	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, -SCALE * sin(angle), 0,
+				SCALE * cos(angle))), rot);
 	return (rot);
 }
 
@@ -70,21 +70,21 @@ t_matrix	*get_hrot(t_list **dyn, double angle)
 {
 	t_matrix	*rot;
 
-	rot = _3d_point_col(dyn, SQRT_1000, 0, 0);
+	rot = _3d_point_col(dyn, SCALE, 0, 0);
 	if (rot == NULL)
 		return (NULL);
-	if (_3d_point_col(dyn, 0, SQRT_1000 * cos(angle), -SQRT_1000 * sin(angle))
-		== NULL || mat2vec(dyn, _3d_point_col(dyn, 0, SQRT_1000 * cos(angle),
-				-SQRT_1000 * sin(angle))) == NULL)
+	if (_3d_point_col(dyn, 0, SCALE * cos(angle), -SCALE * sin(angle))
+		== NULL || mat2vec(dyn, _3d_point_col(dyn, 0, SCALE * cos(angle),
+				-SCALE * sin(angle))) == NULL)
 		return (NULL);
-	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, SQRT_1000 * cos(angle),
-				-SQRT_1000 * sin(angle))), rot);
-	if (_3d_point_col(dyn, 0, SQRT_1000 * sin(angle), SQRT_1000 * cos(angle))
-		== NULL || mat2vec(dyn, _3d_point_col(dyn, 0, SQRT_1000 * sin(angle),
-				SQRT_1000 * cos(angle))) == NULL)
+	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, SCALE * cos(angle),
+				-SCALE * sin(angle))), rot);
+	if (_3d_point_col(dyn, 0, SCALE * sin(angle), SCALE * cos(angle))
+		== NULL || mat2vec(dyn, _3d_point_col(dyn, 0, SCALE * sin(angle),
+				SCALE * cos(angle))) == NULL)
 		return (NULL);
-	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, SQRT_1000 * sin(angle),
-				SQRT_1000 * cos(angle))), rot);
+	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, SCALE * sin(angle),
+				SCALE * cos(angle))), rot);
 	return (rot);
 }
 
