@@ -6,11 +6,12 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:06:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 21:47:18 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/01 09:33:35 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stddef.h>
 
 size_t	get_max_width(t_matrix *mat)
 {
@@ -67,10 +68,50 @@ void	fit_scale(t_fdf *f)
 	i = 0;
 	while (i < f->points->ptr->len)
 	{
-		f->points->ptr->ptr[i] = (size_t)round((double)f->points->ptr->ptr[i]
+		f->points->ptr->ptr[i] = (int)round((double)f->points->ptr->ptr[i]
 				/ (double)factor);
-		f->points->ptr[1].ptr[i] = (size_t)round((double)f->points->ptr[1]
+		f->points->ptr[1].ptr[i] = (int)round((double)f->points->ptr[1]
 				.ptr[i] / (double)factor);
 		i++;
 	}
+}
+
+void	fit_pos(t_fdf *f)
+{
+	const int	dx = get_max_dx(f->points);
+	const int	dy = get_max_dy(f->points);
+	size_t		i;
+
+	i = 0;
+	while (i < f->points->ptr->len)
+	{
+		f->points->ptr->ptr[i] += dx;
+		f->points->ptr[1].ptr[i] += dy;
+		i++;
+	}
+}
+
+int	get_max_dx(t_matrix *mat)
+{
+	int		dx;
+	int		prev;
+	size_t	i;
+
+	dx = 0;
+	i = 0;
+	prev = 0;
+	if (mat->col == 0)
+		return (0);
+	while (i < mat->ptr->len)
+	{
+		if (mat->ptr->ptr[i] < 0)
+			dx = -mat->ptr->ptr[i];
+		else if (mat->ptr->ptr[i] > WIN_WIDTH)
+			dx = WIN_WIDTH - mat->ptr->ptr[i];
+		if (abs(prev) > abs(dx))
+			dx = prev;
+		prev = dx;
+		i++;
+	}
+	return (dx);
 }

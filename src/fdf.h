@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 19:22:29 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/01 09:01:50 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ size_t		get_max_width(t_matrix *mat);
 size_t		get_max_height(t_matrix *mat);
 void		fit_scale(t_fdf *f);
 void		fit_pos(t_fdf *f);
+int			get_max_dx(t_matrix *mat);
+int			get_max_dy(t_matrix *mat);
 
 #endif

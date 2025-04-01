@@ -9,7 +9,7 @@ BFLAGS := -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux \
 NAME := fdf
 
 SRCS := src/main.c src/etc.c src/matrix.c src/matrix2.c \
-	src/matrix3.c src/fdf_mlx.c src/fdf_mlx2.c
+	src/matrix3.c src/fdf_mlx.c src/fdf_mlx2.c src/fdf_mlx3.c
 
 OBJS := $(patsubst src/%.c,build/%.o,$(SRCS))
 
