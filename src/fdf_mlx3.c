@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:20:00 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/01 09:48:23 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 02:08:22 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,34 @@ int	get_max_dy(t_matrix *mat)
 		i++;
 	}
 	return (dy);
+}
+
+void	draw_lines(t_fdf *f)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < (size_t)f->dim->y)
+	{
+		j = 0;
+		while (j < (size_t)f->dim->x)
+		{
+			if (j + 1 != (size_t)f->dim->x)
+				draw_line(f->img, coord(f->points, i, j, f->dim),
+					coord(f->points, i, j + 1, f->dim));
+			if (i + 1 != (size_t)f->dim->y)
+				draw_line(f->img, coord(f->points, i, j, f->dim),
+					coord(f->points, i + 1, j, f->dim));
+			j++;
+		}
+		i++;
+	}
+}
+
+t_point2	coord(t_matrix *points, int row, int col, t_point2 *dim)
+{
+	return ((t_point2){points->ptr->ptr[(int)row
+			* dim->x + col], points->ptr[1].ptr[(int)row
+			* dim->x + col]});
 }

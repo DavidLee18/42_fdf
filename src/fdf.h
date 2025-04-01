@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/01 09:01:50 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 02:04:59 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_point2
+{
+	int	x;
+	int	y;
+}	t_point2;
+
 typedef struct s_fdf
 {
 	void		*mlx;
@@ -51,13 +57,8 @@ typedef struct s_fdf
 	t_img		*img;
 	t_matrix	*points;
 	t_list		**dyn;
+	t_point2	*dim;
 }	t_fdf;
-
-typedef struct s_point2
-{
-	int	x;
-	int	y;
-}	t_point2;
 
 void		matalloc(t_list **dyn, t_matrix *mat);
 _Bool		add_row(t_list **dyn, t_vec row, t_matrix *mat);
@@ -75,8 +76,8 @@ t_matrix	*transpose(t_list **dyn, t_matrix *mat);
 t_matrix	*append(t_list **dyn, t_matrix *a, t_matrix *b);
 t_matrix	*matcpy(t_list **dyn, t_matrix *mat);
 
-t_matrix	*atoi_split(t_list **dyn, int fd);
-t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row);
+t_matrix	*atoi_split(t_list **dyn, int fd, t_point2 *dim);
+t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row, t_point2 *dim);
 int			*atoi_(t_list **dyn, const char *str);
 int			clamp(int val, int min, int max);
 
@@ -93,5 +94,7 @@ void		fit_scale(t_fdf *f);
 void		fit_pos(t_fdf *f);
 int			get_max_dx(t_matrix *mat);
 int			get_max_dy(t_matrix *mat);
+void		draw_lines(t_fdf *f);
+t_point2	coord(t_matrix *points, int row, int col, t_point2 *dim);
 
 #endif

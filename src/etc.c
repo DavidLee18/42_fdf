@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 04:36:39 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 02:11:06 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix	*atoi_split(t_list **dyn, int fd)
+t_matrix	*atoi_split(t_list **dyn, int fd, t_point2 *dim)
 {
 	char		*str;
 	t_matrix	*row;
@@ -20,7 +20,6 @@ t_matrix	*atoi_split(t_list **dyn, int fd)
 	t_matrix	*mat;
 	size_t		i;
 
-	mat = NULL;
 	str = gc_getline(dyn, fd);
 	if (str == NULL)
 		return (NULL);
@@ -30,19 +29,19 @@ t_matrix	*atoi_split(t_list **dyn, int fd)
 		tmp = gc_split(dyn, str, ' ');
 		if (tmp == NULL)
 			return (NULL);
-		row = atoi_push(dyn, tmp, i++);
+		row = atoi_push(dyn, tmp, i++, dim);
 		if (i == 1)
 			mat = row;
 		else if (row != NULL)
 			mat = append(dyn, mat, row);
 		if (mat == NULL || row == NULL)
-			return (NULL);
+			return (dim = NULL, NULL);
 		str = gc_getline(dyn, fd);
 	}
-	return (transpose(dyn, mat));
+	return (dim->y = i, transpose(dyn, mat));
 }
 
-t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row)
+t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row, t_point2 *dim)
 {
 	t_vec		*v;
 	size_t		i;
@@ -62,6 +61,7 @@ t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row)
 		if (v == NULL || !add_row(dyn, *v, res))
 			return (NULL);
 	}
+	dim->x = i;
 	return (res);
 }
 
