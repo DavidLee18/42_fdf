@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 07:52:46 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:06:19 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void		fit_pos(t_fdf *f);
 int			get_max_dx(t_matrix *mat);
 int			get_max_dy(t_matrix *mat);
 void		draw_lines(t_fdf *f);
-t_point2	coord(t_matrix *points, int row, int col, t_point2 *dim);
+t_point2	coord(t_matrix *points, int raw);
 
 #endif

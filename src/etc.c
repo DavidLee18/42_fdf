@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:03 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 02:11:06 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:46:24 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_matrix	*atoi_split(t_list **dyn, int fd, t_point2 *dim)
 			return (dim = NULL, NULL);
 		str = gc_getline(dyn, fd);
 	}
-	return (dim->y = i, transpose(dyn, mat));
+	return (transpose(dyn, mat));
 }
 
 t_matrix	*atoi_push(t_list **dyn, char **nums, size_t row, t_point2 *dim)

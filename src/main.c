@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:26:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 01:01:35 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:55:58 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	if (fdf == NULL || fdf->dim == NULL)
 		return (ft_fprintf(STDERR_FILENO, "failed to parse %s\n", argv[1]),
 			gc_free_all(dyn), 0);
+	fdf->dim->y = fdf->points->ptr->len / fdf->dim->x;
 	fdf->points = rotate(&dyn, atan(sin(M_PI_4)), M_PI_4, fdf->points);
 	if (fdf->points == NULL)
 		return (ft_fprintf(STDERR_FILENO, "failed to rotate\n"), cleanup(fdf),

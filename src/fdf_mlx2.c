@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:06:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 12:39:26 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:36:31 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	get_max_dx(t_matrix *mat)
 			dx = -mat->ptr->ptr[i];
 		else if (mat->ptr->ptr[i] > PIC_WIDTH)
 			dx = PIC_WIDTH - mat->ptr->ptr[i];
+		else
+			dx = 0;
 		if (abs(prev) > abs(dx))
 			dx = prev;
 		prev = dx;

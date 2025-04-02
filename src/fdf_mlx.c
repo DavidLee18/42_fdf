@@ -6,11 +6,12 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:36:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 12:24:45 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:06:36 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 t_fdf	*parse_fdf(t_list **dyn, char *path)
 {
@@ -80,27 +81,25 @@ _Bool	draw_fdf(t_fdf *f)
 
 void	draw_line(t_img *img, t_point2 p1, t_point2 p2)
 {
-	double	m;
-	int		x;
-	int		y;
+	double		m;
+	t_point2	p;
 
 	if (p1.x == p2.x)
 	{
-		y = p1.y;
-		while (y != p2.y)
+		p.y = p1.y;
+		while (p.y != p2.y)
 		{
-			put_pixel(img, p1.x, y, RED_COLOR);
-			y += (y < p2.y) * 2 - 1;
+			put_pixel(img, p1.x, p.y, RED_COLOR);
+			p.y += (p.y < p2.y) * 2 - 1;
 		}
 		return ;
 	}
 	m = (double)(p2.y - p1.y) / (double)(p2.x - p1.x);
-	x = p1.x;
-	y = p1.y;
-	while (abs(x - p2.x) > 1 || abs(y - p2.y) > 1)
+	p = p1;
+	while (abs(p.x - p2.x) > 1 || abs(p.y - p2.y) > 1)
 	{
-		put_pixel(img, x, y, RED_COLOR);
-		x += (p2.x > x) * 2 - 1;
-		y = (int)((double)p1.y + m * (double)(x - p1.x));
+		put_pixel(img, p.x, p.y, RED_COLOR);
+		p.x += (p2.x > p.x) * 2 - 1;
+		p.y = (int)((double)p1.y + m * (double)(p.x - p1.x));
 	}
 }
