@@ -6,12 +6,11 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 01:28:19 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/31 19:21:07 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:40:04 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <math.h>
 
 int	dot_prod(t_vec row, t_matrix *mat, size_t col)
 {

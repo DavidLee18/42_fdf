@@ -6,12 +6,11 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:06:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 07:49:25 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:39:26 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stddef.h>
 
 size_t	get_max_width(t_matrix *mat)
 {
