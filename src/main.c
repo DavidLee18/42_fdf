@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:26:28 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 17:55:58 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/03 01:54:00 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ int	main(int argc, char **argv)
 		return (ft_fprintf(STDERR_FILENO, "failed to parse %s\n", argv[1]),
 			gc_free_all(dyn), 0);
 	fdf->dim->y = fdf->points->ptr->len / fdf->dim->x;
-	fdf->points = rotate(&dyn, atan(sin(M_PI_4)), M_PI_4, fdf->points);
-	if (fdf->points == NULL)
-		return (ft_fprintf(STDERR_FILENO, "failed to rotate\n"), cleanup(fdf),
-			0);
+	fdf->points = rotate2(&dyn, -M_PI_4, rotate(&dyn, M_PI * 5 / 16,
+				M_PI * 13 / 16, fdf->points));
 	fdf->points = ortho_proj(&dyn, fdf->points);
 	if (fdf->points == NULL)
-		return (ft_fprintf(STDERR_FILENO, "failed to project\n"), cleanup(fdf),
+		return (ft_fprintf(STDERR_FILENO, "failed to rotate\n"), cleanup(fdf),
 			0);
 	if (!draw_fdf(fdf))
 		return (cleanup(fdf), 0);

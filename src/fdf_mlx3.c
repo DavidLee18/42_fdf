@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:20:00 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 21:23:58 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/03 02:15:38 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	draw_lines(t_fdf *f)
 		}
 		draw_line(f->img, coord(f->points, i),
 			coord(f->points, i + f->dim->x));
-		draw_line(f->img, coord(f->points, i),
-			coord(f->points, i + 1));
+		if ((int)(i + 1) % f->dim->x != 0)
+			draw_line(f->img, coord(f->points, i),
+				coord(f->points, i + 1));
 		i++;
 	}
 }
@@ -63,4 +64,34 @@ void	draw_lines(t_fdf *f)
 t_point2	coord(t_matrix *points, int raw)
 {
 	return ((t_point2){points->ptr->ptr[raw], points->ptr[1].ptr[raw]});
+}
+
+t_matrix	*get_zrot(t_list **dyn, double angle)
+{
+	t_matrix	*rot;
+
+	rot = _3d_point_col(dyn, SCALE * cos(angle), SCALE * sin(angle), 0);
+	if (rot == NULL)
+		return (NULL);
+	if (_3d_point_col(dyn, -SCALE * sin(angle), SCALE * cos(angle), 0) == NULL
+		|| mat2vec(dyn, _3d_point_col(dyn, -SCALE * sin(angle),
+				SCALE * cos(angle), 0)) == NULL)
+		return (NULL);
+	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, -SCALE * sin(angle),
+				SCALE * cos(angle), 0)), rot);
+	if (_3d_point_col(dyn, 0, 0, SCALE)
+		== NULL || mat2vec(dyn, _3d_point_col(dyn, 0, 0, SCALE)) == NULL)
+		return (NULL);
+	add_col(dyn, *mat2vec(dyn, _3d_point_col(dyn, 0, 0, SCALE)), rot);
+	return (rot);
+}
+
+t_matrix	*rotate2(t_list **dyn, double angz, t_matrix *mat)
+{
+	t_matrix	*zrot;
+
+	zrot = get_zrot(dyn, angz);
+	if (zrot == NULL)
+		return (NULL);
+	return (matmul(dyn, zrot, mat));
 }

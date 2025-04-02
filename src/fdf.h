@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 21:06:19 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/03 01:52:34 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ t_matrix	*matmul(t_list **dyn, t_matrix *a, t_matrix *b);
 t_matrix	*matmul2(t_matrix *c, t_matrix *a, t_matrix *b);
 int			dot_prod(t_vec row, t_matrix *mat, size_t col);
 t_matrix	*rotate(t_list **dyn, double angx, double angy, t_matrix *mat);
-t_matrix	*get_vrot(t_list **dyn, double angle);
-t_matrix	*get_hrot(t_list **dyn, double angle);
+t_matrix	*rotate2(t_list **dyn, double angz, t_matrix *mat);
+t_matrix	*get_yrot(t_list **dyn, double angle);
+t_matrix	*get_xrot(t_list **dyn, double angle);
+t_matrix	*get_zrot(t_list **dyn, double angle);
 t_matrix	*ortho_proj(t_list **dyn, t_matrix *mat);
 t_matrix	*_3d_point_col(t_list **dyn, int x, int y, int z);
 t_vec		*mat2vec(t_list **dyn, t_matrix *mat);
