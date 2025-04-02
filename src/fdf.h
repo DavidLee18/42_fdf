@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 22:29:49 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 02:04:59 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 07:52:46 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # define ESC 0xFF1B
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
+# define PIC_WIDTH 1900
+# define PIC_HEIGHT 1000
+# define RED_COLOR 0x00FF0000
 
 typedef struct s_matrix
 {

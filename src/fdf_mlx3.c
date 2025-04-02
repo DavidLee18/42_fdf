@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:20:00 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/02 02:08:22 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 07:49:30 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	get_max_dy(t_matrix *mat)
 	{
 		if (mat->ptr[1].ptr[i] < 0)
 			dy = -mat->ptr[1].ptr[i];
-		else if (mat->ptr[1].ptr[i] > WIN_HEIGHT)
-			dy = WIN_HEIGHT - mat->ptr[1].ptr[i];
+		else if (mat->ptr[1].ptr[i] > PIC_HEIGHT)
+			dy = PIC_HEIGHT - mat->ptr[1].ptr[i];
 		if (abs(prev) > abs(dy))
 			dy = prev;
 		prev = dy;

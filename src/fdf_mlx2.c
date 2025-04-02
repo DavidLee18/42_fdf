@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:06:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/04/01 09:33:35 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/04/02 07:49:25 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,46 @@
 
 size_t	get_max_width(t_matrix *mat)
 {
-	size_t	w;
+	int		wmax;
+	int		wmin;
 	size_t	i;
-	int		prev;
 
-	w = 0;
+	wmax = 0;
+	wmin = 0;
 	i = 0;
-	prev = mat->ptr->ptr[0];
 	if (mat->col == 0)
 		return (0);
 	while (i < mat->ptr->len)
 	{
-		if (w < (size_t)abs(mat->ptr->ptr[i] - prev))
-			w = (size_t)abs(mat->ptr->ptr[i] - prev);
+		if (wmax < mat->ptr->ptr[i])
+			wmax = mat->ptr->ptr[i];
+		if (wmin > mat->ptr->ptr[i])
+			wmin = mat->ptr->ptr[i];
 		i++;
 	}
-	return (w);
+	return (wmax - wmin);
 }
 
 size_t	get_max_height(t_matrix *mat)
 {
-	size_t	h;
+	int		hmax;
+	int		hmin;
 	size_t	i;
-	int		prev;
 
-	h = 0;
+	hmax = 0;
+	hmin = 0;
 	i = 0;
-	prev = mat->ptr->ptr[0];
 	if (mat->col == 0)
 		return (0);
-	while (i < mat->ptr->len)
+	while (i < mat->ptr[1].len)
 	{
-		if (h < (size_t)abs(mat->ptr[1].ptr[i] - prev))
-			h = (size_t)abs(mat->ptr[1].ptr[i] - prev);
+		if (hmax < mat->ptr[1].ptr[i])
+			hmax = mat->ptr[1].ptr[i];
+		if (hmin > mat->ptr[1].ptr[i])
+			hmin = mat->ptr[1].ptr[i];
 		i++;
 	}
-	return (h);
+	return (hmax - hmin);
 }
 
 void	fit_scale(t_fdf *f)
@@ -61,9 +65,9 @@ void	fit_scale(t_fdf *f)
 	size_t	i;
 
 	x_scale = (size_t)ceil((double)get_max_width(f->points)
-			/ (double)WIN_WIDTH);
+			/ (double)PIC_WIDTH);
 	y_scale = (size_t)ceil((double)get_max_height(f->points)
-			/ (double)WIN_HEIGHT);
+			/ (double)PIC_HEIGHT);
 	factor = usize_max(x_scale, y_scale);
 	i = 0;
 	while (i < f->points->ptr->len)
@@ -106,8 +110,8 @@ int	get_max_dx(t_matrix *mat)
 	{
 		if (mat->ptr->ptr[i] < 0)
 			dx = -mat->ptr->ptr[i];
-		else if (mat->ptr->ptr[i] > WIN_WIDTH)
-			dx = WIN_WIDTH - mat->ptr->ptr[i];
+		else if (mat->ptr->ptr[i] > PIC_WIDTH)
+			dx = PIC_WIDTH - mat->ptr->ptr[i];
 		if (abs(prev) > abs(dx))
 			dx = prev;
 		prev = dx;
